@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Cá Nhân</title>
+    <style>
+        /* Các thiết lập cơ bản */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            overflow-x: hidden;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+        }
+        .clock-container, .countdown-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .countdown-container {
+            top: 60px;
+        }
+        .profile-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid white;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .music-text {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .music-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .link-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link-section a, .btn {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            border: 1px solid white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        .link-section a:hover, .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Nút chuyển đổi chế độ */
+        .toggle-theme, .toggle-background {
+            position: fixed;
+            padding: 10px;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        .toggle-theme {
+            top: 20px;
+            right: 20px;
+        }
+        .toggle-background {
+            top: 60px;
+            right: 20px;
+        }
+        .toggle-theme:hover, .toggle-background:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Hiệu ứng tuyết rơi */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            pointer-events: none;
+            animation-name: fall;
+            animation-timing-function: linear;
+            opacity: 0.8;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Phần bình luận */
+        .comment-section {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .comment-section textarea {
+            width: 100%;
+            height: 100px;
+            border-radius: 5px;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .comment-section button {
+            padding: 10px 20px;
+            border: none;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .comment-section button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nút chuyển đổi chế độ -->
+    <button class="toggle-theme" id="toggleTheme">Chế độ tối</button>
+    <button class="toggle-background" id="toggleBackground">Đổi hình nền</button>
+
+    <!-- Đồng hồ thời gian thực -->
+    <div class="clock-container" id="clock">00:00:00</div>
+    <!-- Đồng hồ đếm ngược sinh nhật sắp tới -->
+    <div class="countdown-container" id="countdown">Sinh nhật sắp tới: 00d 00h 00m 00s</div>
+
+    <div class="container">
+        <div class="profile-container" id="profileContainer">
+            <img src="images/anhcn.jpg" alt="Ảnh cá nhân" class="profile-img">
+            <h1>Cao Văn Nam Anh</h1>
+            <p>Sinh Ngày 05/09/2005</p>
+            <p>Tuổi: 19</p>
+            <p>Sống tại: Đức Giang, Hoài Đức, Hà Nội</p>
+            <p>Sinh viên tại HNMU</p>
+            <p>Khoa: CNTT, Lớp D2023b</p>
+            <p>Sở thích: chơi các món giải đố, đi du lich...</p>
+        </div>
+
+        <p class="music-text">Bản nhạc này là bản nhạc tôi yêu thích</p>
+        <div class="music-container">
+            <audio controls>
+                <source src="images/y2meta.com - NGỰA Ô - TeuYungBoy, Dangrangto (Prod. DONAL) _ Official MV (128 kbps).mp3" type="audio/mpeg"> 
+                Trình duyệt của bạn không hỗ trợ trình phát nhạc.
+            </audio>
+        </div>
+
+        <div class="link-section">
+            <a href="https://www.facebook.com/LV.kid" target="_blank">Giới thiệu về tôi</a>
+        </div>
+
+        <!-- Phần bình luận -->
+        <div class="comment-section">
+            <h2>Bình luận</h2>
+            <textarea id="commentInput" placeholder="Nhập bình luận của bạn..."></textarea>
+            <button id="submitComment">Gửi</button>
+            <div id="commentsList"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Chế độ tối/sáng
+        let isDarkMode = false;
+        const toggleThemeButton = document.getElementById('toggleTheme');
+        toggleThemeButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.style.backgroundColor = isDarkMode ? '#222' : 'rgba(0, 0, 0, 0.5)';
+            document.body.style.color = isDarkMode ? 'white' : 'black';
+            toggleThemeButton.textContent = isDarkMode ? 'Chế độ sáng' : 'Chế độ tối';
+        });
+
+        // Cập nhật đồng hồ thời gian thực
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Cập nhật đồng hồ đếm ngược đến sinh nhật tiếp theo
+        function updateCountdown() {
+            const now = new Date();
+            let nextBirthday = new Date(now.getFullYear(), 7, 10);
+            if (now > nextBirthday) {
+                nextBirthday.setFullYear(now.getFullYear() + 1);
+            }
+            const diff = nextBirthday - now;
+            const days = Math.floor(diff / (1000 * 60 *  60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('countdown').textContent = `Sinh nhật sắp tới: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Chuyển đổi hình nền giữa ảnh 1 và ảnh 2
+        let isImageOne = true;
+        document.getElementById('toggleBackground').addEventListener('click', () => {
+            document.body.style.backgroundImage = isImageOne ? "url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0')" : "url('https://baogiaothong.mediacdn.vn/upload/2-2022/images/2022-04-18/1-1650247268-869-width740height555.jpg')";
+            isImageOne = !isImageOne;
+        });
+
+        // Bình luận
+        document.getElementById('submitComment').addEventListener('click', () => {
+            const commentInput = document.getElementById('commentInput');
+            const commentsList = document.getElementById('commentsList');
+            if (commentInput.value.trim()) {
+                const newComment = document.createElement('p');
+                newComment.textContent = commentInput.value;
+                commentsList.appendChild(newComment);
+                commentInput.value = '';
+            }
+        });
+
+       
+        setInterval(createSnowflake, 200);
+    </script>
+</body>
+</html>
+
